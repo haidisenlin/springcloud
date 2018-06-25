@@ -21,27 +21,26 @@
     <select id="list" resultMap="test">
         SELECT
         <include refid="resultColumns" />
-        FROM
+        FROM test
     </select>
     <!-- 查询多条数据 -->
     <select id="get" parameterMap="test" resultMap="test">
         SELECT
         <include refid="resultColumns" />
-        FROM
-        test
+        FROM test
         where 1=1 and rownum = 1
         <include refid="dynamicCondition"/>
     </select>
 
-    <insert id="insert" parameterMap="test">
+    <insert id="add" parameterMap="test">
         insert into TEST(
         ID,
         NAME,
         age
         ) values(
         #{id,jdbcType=VARCHAR},<!--id-->
-        #{NAME,jdbcType=VARCHAR},<!--消息id-->
-        #{age,jdbcType=NUMERIC},	<!--事务版本号-->
+        #{name,jdbcType=VARCHAR},<!--消息id-->
+        #{age,jdbcType=NUMERIC}	<!--事务版本号-->
 
         )
     </insert>

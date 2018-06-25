@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.ImportResource;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
@@ -17,6 +18,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableEurekaClient
 @MapperScan(basePackages = {"com.lihs.dao"})
 @ComponentScan(basePackages = {"com.lihs.**"})
+@ImportResource(locations = { "classpath:druid-bean.xml" })
 @EnableConfigurationProperties
 
 public class TestApplication {
