@@ -18,11 +18,11 @@
         </if>
 
     </sql>
-    <select id="list" resultMap="test">
-        SELECT
-        <include refid="resultColumns" />
-        FROM test
-    </select>
+    <!--<select id="list" resultMap="test">-->
+        <!--SELECT-->
+        <!--<include refid="resultColumns" />-->
+        <!--FROM test-->
+    <!--</select>-->
     <!-- 查询多条数据 -->
     <select id="get" parameterMap="test" resultMap="test">
         SELECT

@@ -2,6 +2,8 @@ package com.lihs.controller;
 
 import com.lihs.entity.TestEntity;
 import com.lihs.service.TestService;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -11,18 +13,26 @@ import javax.annotation.Resource;
  * @Date 2018/6/21 8:30:34
  */
 @RestController
+@RefreshScope
 public class TestController {
 
     @Resource
     private TestService testService;
 
+    @Value("${a}")
+    private String a;
+
+    @Value("${selectsql}")
+    private String selectsql;
+
     @GetMapping("get/{id}")
     @ResponseBody
-    public TestEntity get(String id){
+    public Object get(String id){
         TestEntity testEntity = new TestEntity();
         testEntity.setId(id);
         try {
-            return testService.get(testEntity);
+            testService.get(testEntity);
+            return a;//
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -32,7 +42,8 @@ public class TestController {
     @ResponseBody
     public Object list(){
         try {
-            return testService.list();
+            testService.list();
+            return a;//
         } catch (Exception e) {
             e.printStackTrace();
             return null;

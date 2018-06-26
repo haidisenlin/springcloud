@@ -1,7 +1,8 @@
 package com.lihs.dao;
 
 import com.lihs.entity.TestEntity;
-import org.apache.ibatis.annotations.Mapper;
+import com.lihs.script.TestSql;
+import org.apache.ibatis.annotations.SelectProvider;
 
 import java.util.List;
 
@@ -10,6 +11,8 @@ import java.util.List;
  * @Date 2018/6/21 14:08:10
  */
 public interface TestDao{
+
+    @SelectProvider(type = TestSql.class,method = "getSelect")
 
     public List<TestEntity> list() throws Exception;
 
