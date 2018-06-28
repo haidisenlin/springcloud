@@ -1,12 +1,22 @@
 package com.lihs.config;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.ctrip.framework.apollo.model.ConfigChangeEvent;
 import com.ctrip.framework.apollo.spring.annotation.ApolloConfigChangeListener;
+import com.ctrip.framework.apollo.spring.property.SpringValueRegistry;
+import com.ctrip.framework.apollo.spring.util.SpringInjector;
+import javafx.application.Application;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.context.refresh.ContextRefresher;
 import org.springframework.cloud.context.scope.refresh.RefreshScope;
+import org.springframework.context.ApplicationContext;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
+import javax.sql.DataSource;
 
 /**
  * @version V2.0.0
@@ -20,21 +30,20 @@ public class SpringBootApolloRefreshConfig {
   @Autowired
   private RefreshScope refreshScope;
 
-  @ApolloConfigChangeListener
+  @Resource
+  Environment environment ;
+
+  private  SpringValueRegistry springValueRegistry = SpringInjector.getInstance(SpringValueRegistry.class);
+
+  @ApolloConfigChangeListener({"TEST1.jdbcurl"})
   public void onChange(ConfigChangeEvent changeEvent) {
-    boolean redisCacheKeysChanged = false;
+    boolean datasource = false;
     for (String changedKey : changeEvent.changedKeys()) {
-      if (changedKey.startsWith("a")) {
-        redisCacheKeysChanged = true;
+      if (changedKey.startsWith("spring.datasource")) {
+          datasource = true;
         break;
       }
     }
-    if (!redisCacheKeysChanged) {
-      return;
-    }
-    refreshScope.refresh("dataSource");
-    refreshScope.refresh("sqlSessionFactory");
-    refreshScope.refresh("platformTransactionManager");
-    refreshScope.refresh("sqlSessionTemplate");
+    refreshScope.refreshAll();
   }
 }

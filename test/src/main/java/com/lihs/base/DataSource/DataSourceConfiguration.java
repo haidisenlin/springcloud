@@ -34,16 +34,18 @@ public class DataSourceConfiguration {
 //        return factory.build();
 //    }
     @Bean
+    @RefreshScope
     @ConfigurationProperties(prefix = "spring.datasource") // application.properteis中对应属性的前缀
     public DataSource dataSource() {
-        DataSourceBuilder factory = DataSourceBuilder
-                .create(this.properties.getClassLoader())
-                .driverClassName(this.properties.getDriverClassName())
-                .url(this.properties.getUrl()).username(this.properties.getUsername())
-                .password(this.properties.getPassword());
-        if (this.properties.getType() != null) {
-            factory.type(this.properties.getType());
-        }
-        return factory.build();
+//        DataSourceBuilder factory = DataSourceBuilder
+//                .create(this.properties.getClassLoader())
+//                .driverClassName(this.properties.getDriverClassName())
+//                .url(this.properties.getUrl()).username(this.properties.getUsername())
+//                .password(this.properties.getPassword());
+//        if (this.properties.getType() != null) {
+//            factory.type(this.properties.getType());
+//        }
+//        return factory.build();
+        return DataSourceBuilder.create().build();
     }
 }

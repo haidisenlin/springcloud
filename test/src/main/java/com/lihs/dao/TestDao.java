@@ -2,7 +2,9 @@ package com.lihs.dao;
 
 import com.lihs.entity.TestEntity;
 import com.lihs.script.TestSql;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 
 import java.util.List;
 
@@ -12,8 +14,8 @@ import java.util.List;
  */
 public interface TestDao{
 
-    @SelectProvider(type = TestSql.class,method = "getSelect")
-
+    //@SelectProvider(type = TestSql.class,method = "getSelect")
+    @Select("select * from TEST")
     public List<TestEntity> list() throws Exception;
 
     public TestEntity get(TestEntity testEntity) throws Exception;
