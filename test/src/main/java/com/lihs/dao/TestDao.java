@@ -14,9 +14,9 @@ import java.util.List;
  */
 public interface TestDao{
 
-    //@SelectProvider(type = TestSql.class,method = "getSelect")
-    @Select("select * from TEST")
+    @SelectProvider(type = TestSql.class,method = "selectsql")
     public List<TestEntity> list() throws Exception;
+
 
     public TestEntity get(TestEntity testEntity) throws Exception;
 

@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
+import javax.xml.stream.events.Namespace;
 
 /**
  * @version V2.0.0
@@ -37,6 +38,7 @@ public class SpringBootApolloRefreshConfig {
 
   @ApolloConfigChangeListener({"TEST1.jdbcurl"})
   public void onChange(ConfigChangeEvent changeEvent) {
+    System.out.println("来过了");
     boolean datasource = false;
     for (String changedKey : changeEvent.changedKeys()) {
       if (changedKey.startsWith("spring.datasource")) {
